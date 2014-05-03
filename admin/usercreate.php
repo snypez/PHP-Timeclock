@@ -149,11 +149,11 @@ $string = strstr($post_username, "\"");
 $string2 = strstr($display_name, "\"");
 
 if ((@$tmp_username == $post_username) || ($password !== $confirm_password) || 
-(!eregi ("^([[:alnum:]]| |-|'|,)+$", $post_username)) || (!eregi ("^([[:alnum:]]| |-|'|,)+$", $display_name)) || (empty($post_username)) || 
+(!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $post_username)) || (!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $display_name)) || (empty($post_username)) || 
 (empty($display_name)) || (empty($email_addy)) || (empty($office_name)) || (empty($group_name)) ||
-//(!eregi ("^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|\{|\}|\[|\]|\||\:|\<|\>|\.|,|\?)+$", $password)) ||
-(!eregi ("^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|[{]|[}]|\[|\]|\||\:|\<|\>|\.|,|\?)+$", $password)) ||
-(!eregi ("^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$", $email_addy)) || (($admin_perms != '1') && (!empty($admin_perms))) || 
+//(!preg_match ("/^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|\{|\}|\[|\]|\||\:|\<|\>|\.|,|\?)+$/i", $password)) ||
+(!preg_match ("/^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|[{]|[}]|\[|\]|\||\:|\<|\>|\.|,|\?)+$/i", $password)) ||
+(!preg_match ("/^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$/i", $email_addy)) || (($admin_perms != '1') && (!empty($admin_perms))) || 
 (($reports_perms != '1') && (!empty($reports_perms))) || (($time_admin_perms != '1') && (!empty($time_admin_perms))) ||
 (($post_disabled != '1') && (!empty($post_disabled))) || (!empty($string))|| (!empty($string2))) {
 
@@ -262,22 +262,22 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     User already exists. Create another username.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]| |-|'|,)+$", $post_username)) {
+elseif (!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $post_username)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     Alphanumeric characters, hyphens, apostrophes, commas, and spaces are allowed when creating a Username.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]| |-|'|,)+$", $display_name)) {
+elseif (!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $display_name)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     Alphanumeric characters, hyphens, apostrophes, commas, and spaces are allowed when creating a Display Name.</td></tr>\n";
 echo "            </table>\n";
 }
-//elseif (!eregi ("^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|\{|\}|\[|\]|\||\:|\<|\>|\.|,|\?)+$", $password)) {
-elseif (!eregi ("^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|[{]|[}]|\[|\]|\||\:|\<|\>|\.|,|\?)+$", $password)) {
+//elseif (!preg_match ("/^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|\{|\}|\[|\]|\||\:|\<|\>|\.|,|\?)+$/i", $password)) {
+elseif (!preg_match ("/^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|[{]|[}]|\[|\]|\||\:|\<|\>|\.|,|\?)+$/i", $password)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
@@ -292,7 +292,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     Passwords do not match.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$", $email_addy)) {
+elseif (!preg_match ("/^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$/i", $email_addy)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>

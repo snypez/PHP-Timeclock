@@ -124,8 +124,8 @@ include 'header_post.php';include 'topmain.php';
 
 // begin post validation //
 
-if ((!eregi ("^([[:alnum:]]| |-|'|,)+$", $post_username)) || (!eregi ("^([[:alnum:]]| |-|'|,)+$", $display_name)) ||
-(!eregi ("^([[:alnum:]]|_|\.|-|@)+$", $email_addy))) {
+if ((!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $post_username)) || (!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $display_name)) ||
+(!preg_match ("/^([[:alnum:]]|_|\.|-|@)+$/i", $email_addy))) {
 
 echo "<table width=100% height=89% border=0 cellpadding=0 cellspacing=1>\n";
 echo "  <tr valign=top>\n";
@@ -170,7 +170,7 @@ echo "    <td align=left class=right_main scope=col>\n";
 echo "      <table width=100% height=100% border=0 cellpadding=10 cellspacing=1>\n";
 echo "        <tr class=right_main_text>\n";
 echo "          <td valign=top>\n";
-if (!eregi ("^([[:alnum:]]| |-|'|,)+$", $post_username)) {
+if (!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $post_username)) {
 if ($post_username == "") {} else {
 echo "            <br />\n";
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
@@ -180,7 +180,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
 echo "            </table>\n";
 $evil_input = "1";
 }}
-if (!eregi ("^([[:alnum:]]| |-|'|,)+$", $display_name)) {
+if (!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $display_name)) {
 if ($display_name == "") {} else {
 echo "            <br />\n";
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
@@ -190,7 +190,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
 echo "            </table>\n";
 $evil_input = "1";
 }}
-if (!eregi ("^([[:alnum:]]|_|\.|-|@)+$", $email_addy)) {
+if (!preg_match ("/^([[:alnum:]]|_|\.|-|@)+$/i", $email_addy)) {
 if ($email_addy == "") {} else {
 echo "            <br />\n";
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";

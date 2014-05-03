@@ -228,8 +228,8 @@ if (!isset($username)) {echo "username is not defined for this user.\n"; exit;}
 
 $post_username = stripslashes($post_username);
 
-//if (!eregi ("^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|\{|\}|\[|\]|\||\:|\<|\>|\.|,|\?)+$", $new_password)) {   
-if (!eregi ("^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|[{]|[}]|\[|\]|\||\:|\<|\>|\.|,|\?)+$", $new_password)) {   
+//if (!preg_match ("/^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|\{|\}|\[|\]|\||\:|\<|\>|\.|,|\?)+$/i", $new_password)) {   
+if (!preg_match ("/^([[:alnum:]]|~|\!|@|#|\$|%|\^|&|\*|\(|\)|-|\+|`|_|\=|[{]|[}]|\[|\]|\||\:|\<|\>|\.|,|\?)+$/i", $new_password)) {   
 $evil_password = '1';
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>

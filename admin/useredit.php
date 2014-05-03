@@ -255,8 +255,8 @@ $post_username = stripslashes($post_username);
 $tmp_post_username = stripslashes($post_username);
 $string = strstr($display_name, "\"");
 
-if ((!eregi ("^([[:alnum:]]| |-|'|,)+$", $display_name)) || (empty($display_name)) || (empty($email_addy)) || (empty($office_name)) || (empty($group_name)) ||
-(!eregi ("^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$", $email_addy)) || (($admin_perms != '1') && (!empty($admin_perms))) ||
+if ((!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $display_name)) || (empty($display_name)) || (empty($email_addy)) || (empty($office_name)) || (empty($group_name)) ||
+(!preg_match ("/^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$/i", $email_addy)) || (($admin_perms != '1') && (!empty($admin_perms))) ||
 (($reports_perms != '1') && (!empty($reports_perms))) || (($time_admin_perms != '1') && (!empty($time_admin_perms))) || (($post_disabled != '1') && 
 (!empty($post_disabled))) || (!empty($string))) {
 
@@ -349,14 +349,14 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     Double Quotes are not allowed when creating an Username.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]| |-|'|,)+$", $display_name)) {
+elseif (!preg_match ("/^([[:alnum:]]| |-|'|,)+$/i", $display_name)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     Alphanumeric characters, hyphens, apostrophes, commas, and spaces are allowed when creating a Display Name.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$", $email_addy)) {
+elseif (!preg_match ("/^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$/i", $email_addy)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
