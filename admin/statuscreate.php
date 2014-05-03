@@ -167,8 +167,8 @@ $dupe = '1';
 }
 }
 
-if ((empty($post_statusname)) || (empty($post_color)) || (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_statusname)) || (isset($dupe)) || 
-((!eregi ("^(#[a-fA-F0-9]{6})+$", $post_color)) && (!eregi ("^([a-fA-F0-9]{6})+$", $post_color))) || (!empty($string)) || (!empty($string2))) {
+if ((empty($post_statusname)) || (empty($post_color)) || (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_statusname)) || (isset($dupe)) || 
+((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $post_color)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $post_color))) || (!empty($string)) || (!empty($string2))) {
 
 if (empty($post_statusname)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
@@ -193,14 +193,14 @@ echo "            <table align=center class=table_border width=60% border=0 cell
 echo "              <tr><td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     Double Quotes are not allowed.</td></tr>\n";
 echo "            </table>\n";
-}elseif (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_statusname)) {
+}elseif (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_statusname)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     Alphanumeric characters, hyphens, underscores, spaces, and periods are allowed when editing a Status Name.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif ((!eregi ("^(#[a-fA-F0-9]{6})+$", $post_color)) && (!eregi ("^([a-fA-F0-9]{6})+$", $post_color))) {
+elseif ((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $post_color)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $post_color))) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>

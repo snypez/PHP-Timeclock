@@ -271,7 +271,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     A valid Date is required.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (eregi ("^([0-9]{1,2})[-,/,.]([0-9]{1,2})[-,/,.](([0-9]{2})|([0-9]{4}))$", $post_date, $date_regs)) {
+elseif (preg_match ("/^([0-9]{1,2})[-,\/,.]([0-9]{1,2})[-,\/,.](([0-9]{2})|([0-9]{4}))$/i", $post_date, $date_regs)) {
 if ($calendar_style == "amer") {
 if (isset($date_regs)) {$month = $date_regs[1]; $day = $date_regs[2]; $year = $date_regs[3];}
 if ($month > 12 || $day > 31) {
@@ -394,7 +394,7 @@ if (($tmp_timestamp != $timestamp) || ($tmp_calc != $calc)) {echo "Something is 
 
 if ($timefmt_24hr == '0') {
 
-if ((!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$", $edit_time_textbox[$x], $time_regs)) && (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$", 
+if ((!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$/i", $edit_time_textbox[$x], $time_regs)) && (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$/i", 
 $edit_time_textbox[$x], $time_regs))) {
 $evil_time = '1';
 
@@ -407,7 +407,7 @@ $evil_time = '1';
 }}}
 
 elseif ($timefmt_24hr == '1') {
-if (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])$", $edit_time_textbox[$x], $time_regs)) {
+if (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])$/i", $edit_time_textbox[$x], $time_regs)) {
 $evil_time = '1';
 
 } else {

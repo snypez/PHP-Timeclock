@@ -241,7 +241,7 @@ $result3 = mysql_query($query3);
 if ($user_cnt != $tmp_user_cnt) {echo "Posted user count does not equal actual user count for this office.\n"; exit;}
 if ($group_cnt != $tmp_group_cnt) {echo "Posted group count does not equal actual group count for this office.\n"; exit;}
 
-if ((empty($post_officename)) || (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_officename))) {
+if ((empty($post_officename)) || (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_officename))) {
 
 echo "<table width=100% height=89% border=0 cellpadding=0 cellspacing=1>\n";
 echo "  <tr valign=top>\n";
@@ -299,7 +299,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     An Office Name is required.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_officename)) {
+elseif (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_officename)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>

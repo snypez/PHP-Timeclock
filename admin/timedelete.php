@@ -273,7 +273,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     A valid Date is required.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (eregi ("^([0-9]{1,2})[-,/,.]([0-9]{1,2})[-,/,.](([0-9]{2})|([0-9]{4}))$", $post_date, $date_regs)) {
+elseif (preg_match ("/^([0-9]{1,2})[-,\/,.]([0-9]{1,2})[-,\/,.](([0-9]{2})|([0-9]{4}))$/i", $post_date, $date_regs)) {
 if ($calendar_style == "amer") {
 if (isset($date_regs)) {$month = $date_regs[1]; $day = $date_regs[2]; $year = $date_regs[3];}
 if ($month > 12 || $day > 31) {

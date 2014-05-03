@@ -164,8 +164,8 @@ $post_statusname = addslashes($post_statusname);
 $string = strstr($post_statusname, "\'");
 $string2 = strstr($post_statusname, "\"");
 
-if ((empty($post_statusname)) || (empty($post_color)) || (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_statusname)) ||
-((!eregi ("^(#[a-fA-F0-9]{6})+$", $post_color)) && (!eregi ("^([a-fA-F0-9]{6})+$", $post_color))) || (!empty($string)) || (!empty($string2))) {
+if ((empty($post_statusname)) || (empty($post_color)) || (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_statusname)) ||
+((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $post_color)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $post_color))) || (!empty($string)) || (!empty($string2))) {
 
 echo "<table width=100% height=89% border=0 cellpadding=0 cellspacing=1>\n";
 echo "  <tr valign=top>\n";
@@ -230,14 +230,14 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     &nbsp;A Color is required.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_statusname)) {
+elseif (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_statusname)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red nowrap>
                     &nbsp;Alphanumeric characters, hyphens, underscores, spaces, and periods are allowed when editing a Status Name.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif ((!eregi ("^(#[a-fA-F0-9]{6})+$", $post_color)) && (!eregi ("^([a-fA-F0-9]{6})+$", $post_color))) {
+elseif ((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $post_color)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $post_color))) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red nowrap>

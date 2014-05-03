@@ -233,7 +233,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     A valid From Date is required.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([0-9]?[0-9])+[-|/|.]+([0-9]?[0-9])+[-|/|.]+(([0-9]{2})|([0-9]{4}))$", $from_date, $date_regs)) {
+elseif (!preg_match ("/^([0-9]?[0-9])+[-|\/|.]+([0-9]?[0-9])+[-|\/|.]+(([0-9]{2})|([0-9]{4}))$/i", $from_date, $date_regs)) {
 $evil_post = '1';
 if ($use_reports_password == "yes") {
 include '../admin/topmain.php';
@@ -318,7 +318,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     A valid To Date is required.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([0-9]?[0-9])+[-|/|.]+([0-9]?[0-9])+[-|/|.]+(([0-9]{2})|([0-9]{4}))$", $to_date, $date_regs)) {
+elseif (!preg_match ("/^([0-9]?[0-9])+[-|\/|.]+([0-9]?[0-9])+[-|\/|.]+(([0-9]{2})|([0-9]{4}))$/i", $to_date, $date_regs)) {
 $evil_post = '1';
 if ($use_reports_password == "yes") {
 include '../admin/topmain.php';

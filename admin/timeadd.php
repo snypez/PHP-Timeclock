@@ -316,8 +316,8 @@ echo "        <tr class=right_main_text>\n";
 echo "          <td valign=top>\n";
 echo "            <br />\n";
 
-if ((empty($post_date)) || (empty($post_time)) || ($post_statusname == '1') || (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_statusname)) ||
-(!eregi ("^([0-9]{1,2})[-,/,.]([0-9]{1,2})[-,/,.](([0-9]{2})|([0-9]{4}))$", $post_date))) { 
+if ((empty($post_date)) || (empty($post_time)) || ($post_statusname == '1') || (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_statusname)) ||
+(!preg_match ("/^([0-9]{1,2})[-,\/,.]([0-9]{1,2})[-,\/,.](([0-9]{2})|([0-9]{4}))$/i", $post_date))) { 
 $evil_post = '1';
 if (empty($post_date)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
@@ -340,14 +340,14 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     A Status must be chosen.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_statusname)) {
+elseif (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_statusname)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     Alphanumeric characters, hyphens, underscores, spaces, and periods are allowed in a Status Name.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([0-9]{1,2})[-,/,.]([0-9]{1,2})[-,/,.](([0-9]{2})|([0-9]{4}))$", $post_date)) {
+elseif (!preg_match ("/^([0-9]{1,2})[-,\/,.]([0-9]{1,2})[-,\/,.](([0-9]{2})|([0-9]{4}))$/i", $post_date)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
@@ -358,7 +358,7 @@ echo "            </table>\n";
 
 elseif ($timefmt_24hr == '0') {
 
-if ((!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$", $post_time, $time_regs)) && (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$", $post_time, 
+if ((!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$/i", $post_time, $time_regs)) && (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$/i", $post_time, 
 $time_regs))) {
 $evil_time = '1';
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
@@ -381,7 +381,7 @@ echo "            </table>\n";
 }}}
 
 elseif ($timefmt_24hr == '1') {
-if (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])$", $post_time, $time_regs)) {
+if (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])$/i", $post_time, $time_regs)) {
 $evil_time = '1';
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
@@ -402,7 +402,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
 echo "            </table>\n";
 }}}
 
-if (eregi ("^([0-9]{1,2})[-,/,.]([0-9]{1,2})[-,/,.](([0-9]{2})|([0-9]{4}))$", $post_date, $date_regs)) {
+if (preg_match ("/^([0-9]{1,2})[-,\/,.]([0-9]{1,2})[-,\/,.](([0-9]{2})|([0-9]{4}))$/i", $post_date, $date_regs)) {
 if ($calendar_style == "amer") {
 if (isset($date_regs)) {$month = $date_regs[1]; $day = $date_regs[2]; $year = $date_regs[3];}
 if ($month > 12 || $day > 31) {

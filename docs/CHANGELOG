@@ -1,10 +1,15 @@
 PHP Timeclock
-Version 1.04
-http://sourceforge.net/projects/timeclock
+Version 1.05
+https://github.com/snypez/PHP-Timeclock
 Copyright (C) 2006 Ken Papizan <pappyzan_at_users.sourceforge.net>
+Copyright (C) 2014 Tim Larry 
 
 
 PHP Timeclock Changelog
+
+1.05  5/3/14
+-----------------------
+--- Replace depreciated eregi function with preg_match
 
 1.04  11/15/07
 -----------------------

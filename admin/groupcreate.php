@@ -187,7 +187,7 @@ while ($row=mysql_fetch_array($result)) {
 $string = strstr($post_groupname, "\'");
 $string2 = strstr($post_groupname, "\"");
 
-if ((!empty($string)) || (empty($post_groupname)) || (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_groupname)) || ($select_office_name == '1') ||
+if ((!empty($string)) || (empty($post_groupname)) || (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_groupname)) || ($select_office_name == '1') ||
 (@$tmp_groupname == $post_groupname) || (!empty($string2))) {
 
 if (!empty($string)) {
@@ -205,7 +205,7 @@ echo "            <table align=center class=table_border width=60% border=0 cell
 echo "              <tr><td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     A Group Name is required.</td></tr>\n";
 echo "            </table>\n";
-}elseif (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_groupname)) {
+}elseif (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_groupname)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     Alphanumeric characters, hyphens, underscores, spaces, and periods are allowed when creating a Group Name.</td></tr>\n";

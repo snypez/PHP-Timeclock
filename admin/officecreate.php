@@ -164,8 +164,8 @@ while ($row=mysql_fetch_array($result)) {
 $string = strstr($post_officename, "\'");
 $string2 = strstr($post_officename, "\"");
 
-if ((@$tmp_officename == $post_officename) || (empty($post_officename)) || (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_officename)) || 
-((!eregi ("^([0-9])$", @$how_many)) && (isset($how_many))) || (@$how_many == '0') || (($create_groups != '1') && (!empty($create_groups))) ||
+if ((@$tmp_officename == $post_officename) || (empty($post_officename)) || (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_officename)) || 
+((!preg_match ("/^([0-9])$/i", @$how_many)) && (isset($how_many))) || (@$how_many == '0') || (($create_groups != '1') && (!empty($create_groups))) ||
 (!empty($string)) || (!empty($string2))) {
 
 if (empty($post_officename)) {
@@ -196,7 +196,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     Office already exists. Create another office.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $post_officename)) {
+elseif (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $post_officename)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
@@ -217,7 +217,7 @@ echo "                <td class=table_rows width=20 align=center><img src='../im
                     You have chosen to create groups within this new office. Please input a number other than '0' for 'How Many?'.</td></tr>\n";
 echo "            </table>\n";
 }
-elseif (!eregi ("^([0-9])$", $how_many)) {
+elseif (!preg_match ("/^([0-9])$/i", $how_many)) {
 echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr>\n";
 echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
@@ -293,7 +293,7 @@ $z = $x+1;
 // begin post validation // 
 
 if (empty($input_group_name[$z])) {$empty_groupname = '1';}
-if (!eregi ("^([[:alnum:]]| |-|_|\.)+$", $input_group_name[$z])) {$evil_groupname = '1';}
+if (!preg_match ("/^([[:alnum:]]| |-|_|\.)+$/i", $input_group_name[$z])) {$evil_groupname = '1';}
 
 }
 

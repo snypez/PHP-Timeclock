@@ -165,14 +165,14 @@ echo "              <tr><td width=20 align=center height=25 class=table_rows><im
 echo "            </table>\n";
 $evil = "1";
 echo "            <br />\n";
-}elseif ((!eregi ("^(#[a-fA-F0-9]{6})+$", $color1)) && (!eregi ("^([a-fA-F0-9]{6})+$", $color1))) {
+}elseif ((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $color1)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $color1))) {
 echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25><b>color1</b> is not a valid color.</td></tr>\n";
 echo "            </table>\n";
 $evil = "1";
 echo "            <br />\n";
-}elseif ((!eregi ("^(#[a-fA-F0-9]{6})+$", $color2)) && (!eregi ("^([a-fA-F0-9]{6})+$", $color2))) {
+}elseif ((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $color2)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $color2))) {
 echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25><b>color2</b> is not a valid color.</td></tr>\n";
@@ -221,7 +221,7 @@ echo "              <tr><td width=20 align=center height=25 class=table_rows><im
 echo "            </table>\n";
 $evil = "1";
 echo "            <br />\n";
-}elseif ((strlen($metar) > 4) || (!eregi ("^([a-zA-Z]{4})+$", $metar))) {
+}elseif ((strlen($metar) > 4) || (!preg_match ("/^([a-zA-Z]{4})+$/i", $metar))) {
 echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25><b>metar</b> is not a valid metar.</td></tr>\n";
@@ -280,17 +280,17 @@ echo "            <br />\n";
                       <td class=table_rows_red height=25>One of the <b>allowed_networks</b> is longer than the allowed 21 characters.</td></tr>\n";
     echo "            </table>\n";
     echo "            <br />\n";
-  } elseif ((!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$", $report_start_time, $start_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$", $report_start_time, $start_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])$", $report_start_time, $start_time_regs))) {
+  } elseif ((!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$/i", $report_start_time, $start_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$/i", $report_start_time, $start_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])$/i", $report_start_time, $start_time_regs))) {
       echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
       echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                         <td class=table_rows_red height=25><b>report_start_time</b> is not a valid time.</td></tr>\n";
       echo "            </table>\n";
       echo "            <br />\n";
-  } elseif ((!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$", $report_end_time, $end_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$", $report_end_time, $end_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])$", $report_end_time, $end_time_regs))) {
+  } elseif ((!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$/i", $report_end_time, $end_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$/i", $report_end_time, $end_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])$/i", $report_end_time, $end_time_regs))) {
       echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
       echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                         <td class=table_rows_red height=25><b>report_end_time</b> is not a valid time.</td></tr>\n";
@@ -1329,13 +1329,13 @@ echo "              <tr><td width=20 align=center height=25 class=table_rows><im
                   <td class=table_rows_red height=25><b>use_server_tz</b> and <b>use_client_tz</b> cannot both be set to  \"yes\".</td></tr>\n";
 echo "            </table>\n";
 $evil_post = "1";
-}elseif ((!eregi ("^(#[a-fA-F0-9]{6})+$", $post_color1)) && (!eregi ("^([a-fA-F0-9]{6})+$", $post_color1))) {
+}elseif ((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $post_color1)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $post_color1))) {
 echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25><b>color1</b> is not a valid color.</td></tr>\n";
 echo "            </table>\n";
 $evil_post = "1";
-}elseif ((!eregi ("^(#[a-fA-F0-9]{6})+$", $post_color2)) && (!eregi ("^([a-fA-F0-9]{6})+$", $post_color2))) {
+}elseif ((!preg_match ("/^(#[a-fA-F0-9]{6})+$/i", $post_color2)) && (!preg_match ("/^([a-fA-F0-9]{6})+$/i", $post_color2))) {
 echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25><b>color2</b> is not a valid color.</td></tr>\n";
@@ -1389,7 +1389,7 @@ echo "              <tr><td width=20 align=center height=25 class=table_rows><im
                   <td class=table_rows_red height=25><b>display_weather</b> does not equal \"yes\" or \"no\".</td></tr>\n";
 echo "            </table>\n";
 $evil_post = "1";
-}elseif ((isset($post_metar)) && (!eregi ("^([a-zA-Z]{4})+$", $post_metar))) {
+}elseif ((isset($post_metar)) && (!preg_match ("/^([a-zA-Z]{4})+$/i", $post_metar))) {
 echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25><b>metar</b> is not a valid metar.</td></tr>\n";
@@ -1415,7 +1415,7 @@ echo "              <tr><td width=20 align=center height=25 class=table_rows><im
 echo "            </table>\n";
 $evil_post = "1";
 }
-}elseif ((!eregi ("^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$", $post_email)) && ($post_email != "none")) {
+}elseif ((!preg_match ("/^([[:alnum:]]|_|\.|-)+@([[:alnum:]]|\.|-)+(\.)([a-z]{2,4})$/i", $post_email)) && ($post_email != "none")) {
 echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
 echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                   <td class=table_rows_red height=25>Only alphanumeric characters, underscores, periods, and hyphens are allowed when creating an Email 
@@ -1459,15 +1459,15 @@ $evil_post = "1";
       if ((strlen($post_allowed_networks[$x]) > 21)) {
         $evil_allowed_networks_length = "1";
         $evil_post = "1";
-      } elseif ((!eregi("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$", $post_allowed_networks[$x], $net_regs)) &&
-        (!eregi("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/([0-9]?[0-9]?[0-9])$", $post_allowed_networks[$x], $net_regs)) &&
-        (!eregi("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.\[([0-9]?[0-9]?[0-9])\-([0-9]?[0-9]?[0-9])\]$", $post_allowed_networks[$x], $net_regs)) &&
+      } elseif ((!preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/i", $post_allowed_networks[$x], $net_regs)) &&
+        (!preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/([0-9]?[0-9]?[0-9])$/i", $post_allowed_networks[$x], $net_regs)) &&
+        (!preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.\[([0-9]?[0-9]?[0-9])\-([0-9]?[0-9]?[0-9])\]$/i", $post_allowed_networks[$x], $net_regs)) &&
         (!empty($post_allowed_networks[$x]))) {
           $evil_allowed_networks = "1";
           $evil_post = "1";
-      } elseif ((eregi("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$", $post_allowed_networks[$x], $net_regs)) ||
-        (eregi("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/([0-9]?[0-9]?[0-9])$", $post_allowed_networks[$x], $net_regs)) ||
-        (eregi("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.\[([0-9]?[0-9]?[0-9])\-([0-9]?[0-9]?[0-9])\]$", $post_allowed_networks[$x], $net_regs)) ||
+      } elseif ((preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/i", $post_allowed_networks[$x], $net_regs)) ||
+        (preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/([0-9]?[0-9]?[0-9])$/i", $post_allowed_networks[$x], $net_regs)) ||
+        (preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.\[([0-9]?[0-9]?[0-9])\-([0-9]?[0-9]?[0-9])\]$/i", $post_allowed_networks[$x], $net_regs)) ||
         (!empty($post_allowed_networks[$x]))) {
 
         if (strstr($post_allowed_networks[$x], '/')) {
@@ -1507,18 +1507,18 @@ $evil_post = "1";
     echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                       <td height=25 class=table_rows_red>one of the <b>allowed_networks</b> is more than the allowed 21 characters.</td></tr>\n";
     echo "            </table>\n";
-  } elseif ((!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$", $post_report_start_time, $start_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$", $post_report_start_time, $start_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])$", $post_report_start_time, $start_time_regs))) {
+  } elseif ((!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$/i", $post_report_start_time, $start_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$/i", $post_report_start_time, $start_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])$/i", $post_report_start_time, $start_time_regs))) {
       echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
       echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                         <td class=table_rows_red height=25><b>report_start_time</b> is not a valid time.</td></tr>\n";
       echo "            </table>\n";
       echo "            <br />\n";
       $evil_post = "1";
-  } elseif ((!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$", $post_report_end_time, $end_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$", $post_report_end_time, $end_time_regs)) && 
-    (!eregi ("^([0-9]?[0-9])+:+([0-9]+[0-9])$", $post_report_end_time, $end_time_regs))) {
+  } elseif ((!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+([a|p]+m)$/i", $post_report_end_time, $end_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])+( [a|p]+m)$/i", $post_report_end_time, $end_time_regs)) && 
+    (!preg_match ("/^([0-9]?[0-9])+:+([0-9]+[0-9])$/i", $post_report_end_time, $end_time_regs))) {
       echo "            <table align=center class=table_border width=100% border=0 cellpadding=0 cellspacing=3>\n";
       echo "              <tr><td width=20 align=center height=25 class=table_rows><img src='../images/icons/cancel.png' /></td>
                         <td class=table_rows_red height=25><b>report_end_time</b> is not a valid time.</td></tr>\n";
