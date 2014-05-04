@@ -10,7 +10,7 @@ $self = $_SERVER['PHP_SELF'];
 
 if (isset($_POST['login_userid']) && (isset($_POST['login_password']))) {
     $login_userid = $_POST['login_userid'];
-    $login_password = crypt($_POST['login_password'], 'xy');
+    #$login_password = crypt($_POST['login_password'], 'xy');
 
     $query = "select empfullname, employee_passwd, admin, time_admin from ".$db_prefix."employees
               where empfullname = '".$login_userid."'";
@@ -18,14 +18,33 @@ if (isset($_POST['login_userid']) && (isset($_POST['login_password']))) {
 
     while ($row=mysql_fetch_array($result)) {
 
-        $admin_username = "".$row['empfullname']."";
-        $admin_password = "".$row['employee_passwd']."";
-        $admin_auth = "".$row['admin']."";
-        $time_admin_auth = "".$row['time_admin']."";
+        $admin_username = $row['empfullname'];
+        $admin_password = $row['employee_passwd'];
+        $admin_auth = $row['admin'];
+        $time_admin_auth = $row['time_admin'];
     }  
 
+	$login_password = crypt($_POST['login_password'], $admin_password);
+	
     if (($login_userid == @$admin_username) && ($login_password == @$admin_password) && ($admin_auth == "1")) {
         $_SESSION['valid_user'] = $login_userid;
+		#check for old password key and upgrade the hash if needed
+		if(stristr($admin_password, '$xy$')) {
+			if (defined("CRYPT_BLOWFISH") && CRYPT_BLOWFISH) {
+			$salt_chars = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','.','/');
+			$salt_chars_length = count($salt_chars) - 1;
+			$cost = rand(4,17); #between 4 and 31...too spendy above 17
+			$salt = '$2y$'.$cost.'$';
+			#loop through and generate a random 22 char salt using all the characters bcrypt supports for the salt
+			for ($counter=1;$counter<=22;$counter++){
+					$key = rand(0,$salt_chars_length);
+					$salt .= $salt_chars[$key];
+			}
+			$password = crypt($password, $salt);
+			$query = "update ".$db_prefix."employees set employee_passwd = ('".$password."') where empfullname = ('".$admin_username."')";
+			$result = mysql_query($query);
+			} else die 'Blowfish algorithm not present';
+		}
     }
 
     elseif (($login_userid == @$admin_username) && ($login_password == @$admin_password) && ($time_admin_auth == "1")) {

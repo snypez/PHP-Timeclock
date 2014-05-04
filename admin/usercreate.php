@@ -353,8 +353,18 @@ if (!isset($tmp_officename)) {echo "Group is not defined.\n"; exit;}
 if (!empty($string)) {$post_username = stripslashes($post_username);}
 if (!empty($string2)) {$display_name = stripslashes($display_name);}
 
-$password = crypt($password, 'xy');
-$confirm_password = crypt($confirm_password, 'xy');
+if (defined("CRYPT_BLOWFISH") && CRYPT_BLOWFISH) {
+    $salt_chars = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','.','/');
+	$salt_chars_length = count($salt_chars) - 1;
+	$cost = rand(4,17); #between 4 and 31...too spendy above 17
+	$salt = '$2y$'.$cost.'$';
+	#loop through and generate a random 22 char salt using all the characters bcrypt supports for the salt
+	for ($counter=1;$counter<=22;$counter++){
+		    $key = rand(0,$salt_chars_length);
+			$salt .= $salt_chars[$key];
+	}
+	$password = crypt($password, $salt);
+} else die 'Blowfish algorithm not present';
 
 echo "            <br />\n";
 echo "            <form name='form' action='$self' method='post'>\n";
@@ -436,8 +446,18 @@ echo "              <tr><td width=30><input type='image' name='submit' value='Cr
 $post_username = addslashes($post_username);
 $display_name = addslashes($display_name);
 
-$password = crypt($password, 'xy');
-$confirm_password = crypt($confirm_password, 'xy');
+if (defined("CRYPT_BLOWFISH") && CRYPT_BLOWFISH) {
+    $salt_chars = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','.','/');
+	$salt_chars_length = count($salt_chars) - 1;
+	$cost = rand(4,17); #between 4 and 31...too spendy above 17
+	$salt = '$2y$'.$cost.'$';
+	#loop through and generate a random 22 char salt using all the characters bcrypt supports for the salt
+	for ($counter=1;$counter<=22;$counter++){
+		    $key = rand(0,$salt_chars_length);
+			$salt .= $salt_chars[$key];
+	}
+	$password = crypt($password, $salt);
+} else die 'Blowfish algorithm not present';
 
 $query3 = "insert into ".$db_prefix."employees (empfullname, displayname, employee_passwd, email, groups, office, admin, reports, time_admin, disabled) 
            values ('".$post_username."', '".$display_name."', '".$password."', '".$email_addy."', '".$group_name."', '".$office_name."', '".$admin_perms."', 
