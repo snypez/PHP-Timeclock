@@ -43,7 +43,7 @@ if (isset($_POST['login_userid']) && (isset($_POST['login_password']))) {
 			$password = crypt($password, $salt);
 			$query = "update ".$db_prefix."employees set employee_passwd = ('".$password."') where empfullname = ('".$admin_username."')";
 			$result = mysql_query($query);
-			} else die 'Blowfish algorithm not present';
+			} else die ('Blowfish algorithm not present');
 		}
     }
 
