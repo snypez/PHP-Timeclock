@@ -32,7 +32,7 @@ CREATE TABLE dbversion (
 # Dumping data for table `dbversion`
 #
 
-INSERT INTO dbversion VALUES ('1.4');
+INSERT INTO dbversion VALUES ('1.5');
 
 # --------------------------------------------------------
 
@@ -43,7 +43,7 @@ INSERT INTO dbversion VALUES ('1.4');
 CREATE TABLE employees (
   empfullname varchar(50) NOT NULL default '',
   tstamp bigint(14) default NULL,
-  employee_passwd varchar(25) NOT NULL default '',
+  employee_passwd char(60) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL default '',
   displayname varchar(50) NOT NULL default '',
   email varchar(75) NOT NULL default '',
   groups varchar(50) NOT NULL default '',

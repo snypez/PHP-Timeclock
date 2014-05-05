@@ -2,6 +2,28 @@
 # if you would like to utilize a table prefix when upgrading these tables, be sure to use the one you have setup in config.inc.php.
 # this option is $db_prefix.  if you are unaware of what is meant by utilizing a 'table prefix', then please disregard.
 
+###################################################################
+#                                                                 #
+# If upgrading from version 1.4, run these sql statements #
+# below on the PHP Timeclock database.                            #
+#                                                                 #
+###################################################################
+
+#
+# dbversion table
+#
+
+UPDATE `dbversion` SET `dbversion` = '1.5';
+
+# --------------------------------------------------------
+
+#
+# employees table
+#
+
+ALTER TABLE `employees` CHNAGE `employee_passwd` `employee_passwd` char(60) CHARACTER SET latin1 COLLATE latin1_bin;
+
+# --------------------------------------------------------
 
 ###################################################################
 #                                                                 #
@@ -32,7 +54,7 @@ CREATE TABLE audit (
 # dbversion table
 #
 
-UPDATE `dbversion` SET `dbversion` = '1.4';
+UPDATE `dbversion` SET `dbversion` = '1.5';
 
 # --------------------------------------------------------
 
@@ -49,6 +71,7 @@ ALTER TABLE `info` ADD `ipaddress` VARCHAR(39) NOT NULL default '';
 #
 
 ALTER TABLE `employees` ADD `disabled` TINYINT(1) NOT NULL default '0';
+ALTER TABLE `employees` CHNAGE `employee_passwd` `employee_passwd` char(60) CHARACTER SET latin1 COLLATE latin1_bin;
 
 # --------------------------------------------------------
 
@@ -80,7 +103,7 @@ CREATE TABLE audit (
 # dbversion table
 #
 
-UPDATE `dbversion` SET `dbversion` = '1.4';
+UPDATE `dbversion` SET `dbversion` = '1.5';
 
 # --------------------------------------------------------
 
@@ -97,7 +120,7 @@ ALTER TABLE `employees` ADD `reports` TINYINT(1) NOT NULL default '0';
 ALTER TABLE `employees` ADD `time_admin` TINYINT(1) NOT NULL default '0';
 ALTER TABLE `employees` ADD `disabled` TINYINT(1) NOT NULL default '0';
 INSERT INTO employees VALUES ('admin', NULL, 'xy.RY2HT1QTc2', 'administrator', '', '', '', 1, 1, 1, '');
-
+ALTER TABLE `employees` CHNAGE `employee_passwd` `employee_passwd` char(60) CHARACTER SET latin1 COLLATE latin1_bin;
 # --------------------------------------------------------
 
 #
