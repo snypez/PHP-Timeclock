@@ -276,7 +276,8 @@ if ($request == 'POST') {
     // begin post validation //
 
     if ($use_passwd == "yes") {
-        $employee_passwd = crypt($_POST['employee_passwd'], 'xy');
+        #$employee_passwd = crypt($_POST['employee_passwd'], 'xy');
+		$employee_passwd = $_POST['employee_passwd'];
     }
 
     $query = "select punchitems from ".$db_prefix."punchlist";
@@ -419,11 +420,30 @@ if ($request == 'POST') {
         while ($row=mysql_fetch_array($sel_result)) {
             $tmp_password = "".$row["employee_passwd"]."";
         }
+		if (preg_match('/^xy/',$tmp_password)) {
+			$db_salt = 'xy';
+		} else $db_salt = $tmp_password;
+		$employee_passwd = crypt($employee_passwd, $db_salt);
 
-    }
 
     if ($employee_passwd == $tmp_password) {
-
+		#check for old password key and upgrade the hash if needed
+		if($db_salt == 'xy') {
+			if (defined("CRYPT_BLOWFISH") && CRYPT_BLOWFISH) {
+			$salt_chars = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','.','/');
+			$salt_chars_length = count($salt_chars) - 1;
+			$cost = sprintf("%02s", rand(4,17)); #between 04 and 31...too spendy above 17
+			$salt = '$2y$'.$cost.'$';
+			#loop through and generate a random 22 char salt using all the characters bcrypt supports for the salt
+			for ($counter=1;$counter<=22;$counter++){
+					$key = rand(0,$salt_chars_length);
+					$salt .= $salt_chars[$key];
+			}
+			$password = crypt($_POST['employee_passwd'], $salt);
+			$query = "update ".$db_prefix."employees set employee_passwd = ('".$password."') where empfullname = ('".$fullname."')";
+			$result = mysql_query($query);
+			} else die ('Blowfish algorithm not present');
+		}
         if (strtolower($ip_logging) == "yes") {
             $query = "insert into ".$db_prefix."info (fullname, `inout`, timestamp, notes, ipaddress) values ('".$fullname."', '".$inout."', 
                       '".$tz_stamp."', '".$notes."', '".$connecting_ip."')";
