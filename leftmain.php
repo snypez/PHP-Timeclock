@@ -436,8 +436,8 @@ if ($request == 'POST') {
 			$salt = '$2y$'.$cost.'$';
 			#loop through and generate a random 22 char salt using all the characters bcrypt supports for the salt
 			for ($counter=1;$counter<=22;$counter++){
-					$key = rand(0,$salt_chars_length);
-					$salt .= $salt_chars[$key];
+				$key = rand(0,$salt_chars_length);
+				$salt .= $salt_chars[$key];
 			}
 			$password = crypt($_POST['employee_passwd'], $salt);
 			$query = "update ".$db_prefix."employees set employee_passwd = ('".$password."') where empfullname = ('".$fullname."')";
@@ -479,6 +479,7 @@ if ($request == 'POST') {
         include 'footer.php'; exit;
     }
 
+}
 }
 }
 ?>
